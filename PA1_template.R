@@ -91,5 +91,7 @@ data2<-cbind(data2,type_day=ifelse(data2$weekday=="Saturday"|data2$weekday=="Sun
 ave_type <- ddply(data2, .(interval,type_day), summarize, steps = mean(steps, na.rm=TRUE))
 ggplot(data=ave_type, aes(x=interval, y=steps, group=type_day)) + geom_line(aes(color=type_day))+ facet_wrap(~ type_day, nrow=2)
 
-
-
+setwd("C:/Users/Axelle/Documents/R/RD Project 1/RResearchProject1")
+knit2html("PA1_template.Rmd")
+install.packages("knitr")
+library(knitr)
