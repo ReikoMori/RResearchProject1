@@ -4,14 +4,12 @@ author: "axelle.cb"
 date: "Sunday, April 19, 2015"
 output: html_document
 ---
-*INTRODUCTION*
+**INTRODUCTION**
 It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a Fitbit, Nike Fuelband, or Jawbone Up. These type of devices are part of the "quantified self" movement - a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. But these data remain under-utilized both because the raw data are hard to obtain and there is a lack of statistical methods and software for processing and interpreting the data.
 
 This assignment makes use of data from a personal activity monitoring device. This device collects data at 5 minute intervals through out the day. The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012 and include the number of steps taken in 5 minute intervals each day.
 
-*Loading and preprocessing the data*
-Show any code that is needed to
-
+**Loading and preprocessing the data**
  - Load the data 
  - Process/transform the data (if necessary) into a format suitable for your analysis
 
@@ -20,7 +18,6 @@ Show any code that is needed to
 rm(list = ls())
 library(ggplot2)
 library(plyr)
-
 setwd("C:/Users/Axelle/Documents/R/RD Project 1")
 
 # Loading and pre-processing the data
@@ -45,11 +42,10 @@ data <- read.csv("activity.csv", sep=",", na.strings="NA", colClasses =c("numeri
 ## Error in file(file, "rt"): cannot open the connection
 ```
 
-*What is mean total number of steps taken per day?*
+**What is mean total number of steps taken per day?**
 - Calculate the total number of steps taken per day
 - Make a histogram of the total number of steps taken each day
 - Calculate and report the mean and median of the total number of steps taken per day
-
 
 ```r
 # A. What is the total number of steps taken per day
@@ -80,7 +76,7 @@ qplot(tot_steps, binwidth=1000, xlab="number of steps", ylab = "Frequency", main
 
 ```r
 ## A.3. Mean and Median of total number of steps/day
-mean_steps <- round(mean(daily_steps$steps), 2) 
+mean_steps <- round(mean(daily_steps$steps), 2) #[1] 10766.19
 ```
 
 ```
@@ -88,7 +84,6 @@ mean_steps <- round(mean(daily_steps$steps), 2)
 ```
 
 ```r
-#[1] 10766.19
 median_steps <- quantile(x = daily_steps$steps, probs = 0.5) #10765 
 ```
 
@@ -96,8 +91,7 @@ median_steps <- quantile(x = daily_steps$steps, probs = 0.5) #10765
 ## Error in quantile(x = daily_steps$steps, probs = 0.5): object 'daily_steps' not found
 ```
 
-
-*What is the average daily activity pattern?*
+**What is the average daily activity pattern?**
 - Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 - Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -131,19 +125,14 @@ plot(steps_int$Interval, steps_int$Mean, type="l", col="darkred", lwd=2, xlab="t
 
 ```r
 ##B.2. Find the interval with the maximum number of steps:
-steps_int[which.max(steps_int$Mean),] 
+steps_int[which.max(steps_int$Mean),] #Interval 835, Mean 206.1698
 ```
 
 ```
 ## Error in eval(expr, envir, enclos): object 'steps_int' not found
 ```
 
-```r
-#Interval 835, Mean 206.1698
-```
-
-
-*Imputing missing values*
+**Imputing missing values**
 -Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 - Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 - Create a new dataset that is equal to the original dataset but with the missing data filled in.
@@ -168,7 +157,7 @@ nbr_missing <-sum(as.numeric(missing_values))
 ```
 
 ```r
-nbr_missing 
+nbr_missing # [1] 2304
 ```
 
 ```
@@ -176,8 +165,6 @@ nbr_missing
 ```
 
 ```r
-# [1] 2304
-
 ##C.2. Devise a strategy for filling in missing values
 ### The insertion strategy will consist of replacing the missing value by the mean value of steps for its interval
      
@@ -261,7 +248,7 @@ daily_steps2 <- aggregate(steps~date, data=data2, FUN=sum, na.rm=T)
 
 ```r
 ### new mean and median
-mean_steps2 <- round(mean(daily_steps2$steps), 2)
+mean_steps2 <- round(mean(daily_steps2$steps), 2)#[1] 10766.19
 ```
 
 ```
@@ -269,8 +256,7 @@ mean_steps2 <- round(mean(daily_steps2$steps), 2)
 ```
 
 ```r
-#[1] 10766.19
-median_steps2 <- quantile(x = daily_steps2$steps, probs = 0.5)
+median_steps2 <- quantile(x = daily_steps2$steps, probs = 0.5)# 10766.19 
 ```
 
 ```
@@ -278,7 +264,6 @@ median_steps2 <- quantile(x = daily_steps2$steps, probs = 0.5)
 ```
 
 ```r
-# 10766.19 
 ###New histogram 
 tot_steps2 <- tapply(data2$steps, data$date, FUN=sum, na.rm=TRUE)
 ```
@@ -295,7 +280,7 @@ qplot(tot_steps2, binwidth=1000, xlab="number of steps", ylab = "Frequency", mai
 ## Error in eval(expr, envir, enclos): object 'tot_steps2' not found
 ```
 
-*Are there differences in activity patterns between weekdays and weekends?*
+**Are there differences in activity patterns between weekdays and weekends?**
 -Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 -Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
