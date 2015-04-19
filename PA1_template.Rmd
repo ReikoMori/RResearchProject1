@@ -35,9 +35,12 @@ daily_steps <- aggregate(steps~date, data=data, FUN=sum, na.rm=T)
 
 ## A.2. Histogram of steps per day:
 tot_steps <- tapply(data$steps, data$date, FUN=sum, na.rm=TRUE)
-```{r qplot}
+```
+
+```{r echo=FALSE}
 qplot(tot_steps, binwidth=1000, xlab="number of steps", ylab = "Frequency", main="Total number of daily steps",col="hotpink4")+ theme(legend.position="none")
 ```
+
 ```{r chunk_name7}
 ## A.3. Mean and Median of total number of steps/day
 mean_steps <- round(mean(daily_steps$steps), 2) #[1] 10766.19
@@ -55,8 +58,12 @@ steps_int <-aggregate(data$steps ~ data$interval, FUN=mean, na.rm=T)
 colnames(steps_int) <- c("Interval","Mean")
 
 ### Create time series plot from above calculations
-plot(steps_int$Interval, steps_int$Mean, type="l", col="darkred", lwd=2, xlab="time interval", ylab="average number of steps", main="Time Series Plot")
+```
 
+```{r echo=FALSE}
+plot(steps_int$Interval, steps_int$Mean, type="l", col="darkred", lwd=2, xlab="time interval", ylab="average number of steps", main="Time Series Plot")
+```
+```{r chunk_name8}
 ##B.2. Find the interval with the maximum number of steps:
 steps_int[which.max(steps_int$Mean),] #Interval 835, Mean 206.1698
 ```
@@ -107,6 +114,9 @@ mean_steps2 <- round(mean(daily_steps2$steps), 2)#[1] 10766.19
 median_steps2 <- quantile(x = daily_steps2$steps, probs = 0.5)# 10766.19 
 ###New histogram 
 tot_steps2 <- tapply(data2$steps, data$date, FUN=sum, na.rm=TRUE)
+```
+
+```{r echo=FALSE}
 qplot(tot_steps2, binwidth=1000, xlab="number of steps", ylab = "Frequency", main="Total number of daily steps, w/o NAs",col="hotpink4")+ theme(legend.position="none")
 ```
 
@@ -121,6 +131,9 @@ data2<-cbind(data2,type_day=ifelse(data2$weekday=="Saturday"|data2$weekday=="Sun
 
 ##D.2. Create a time series plot for weekends and weekdays
 ave_type <- ddply(data2, .(interval,type_day), summarize, steps = mean(steps, na.rm=TRUE))
+```
+
+```{r echo=FALSE}
 ggplot(data=ave_type, aes(x=interval, y=steps, group=type_day)) + geom_line(aes(color=type_day))+ facet_wrap(~ type_day, nrow=2)
 ```
 

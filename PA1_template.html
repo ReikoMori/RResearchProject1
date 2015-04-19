@@ -260,9 +260,6 @@ tot_steps &lt;- tapply(data$steps, data$date, FUN=sum, na.rm=TRUE)
 <pre><code>## Error in data$date: object of type &#39;closure&#39; is not subsettable
 </code></pre>
 
-<pre><code class="r">qplot(tot_steps, binwidth=1000, xlab=&quot;number of steps&quot;, ylab = &quot;Frequency&quot;, main=&quot;Total number of daily steps&quot;,col=&quot;hotpink4&quot;)+ theme(legend.position=&quot;none&quot;)
-</code></pre>
-
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;tot_steps&#39; not found
 </code></pre>
 
@@ -302,7 +299,6 @@ steps_int &lt;-aggregate(data$steps ~ data$interval, FUN=mean, na.rm=T)
 </code></pre>
 
 <pre><code class="r">### Create time series plot from above calculations
-plot(steps_int$Interval, steps_int$Mean, type=&quot;l&quot;, col=&quot;darkred&quot;, lwd=2, xlab=&quot;time interval&quot;, ylab=&quot;average number of steps&quot;, main=&quot;Time Series Plot&quot;)
 </code></pre>
 
 <pre><code>## Error in plot(steps_int$Interval, steps_int$Mean, type = &quot;l&quot;, col = &quot;darkred&quot;, : object &#39;steps_int&#39; not found
@@ -430,9 +426,6 @@ tot_steps2 &lt;- tapply(data2$steps, data$date, FUN=sum, na.rm=TRUE)
 <pre><code>## Error in data$date: object of type &#39;closure&#39; is not subsettable
 </code></pre>
 
-<pre><code class="r">qplot(tot_steps2, binwidth=1000, xlab=&quot;number of steps&quot;, ylab = &quot;Frequency&quot;, main=&quot;Total number of daily steps, w/o NAs&quot;,col=&quot;hotpink4&quot;)+ theme(legend.position=&quot;none&quot;)
-</code></pre>
-
 <pre><code>## Error in eval(expr, envir, enclos): object &#39;tot_steps2&#39; not found
 </code></pre>
 
@@ -459,9 +452,6 @@ ave_type &lt;- ddply(data2, .(interval,type_day), summarize, steps = mean(steps,
 </code></pre>
 
 <pre><code>## Error in if (empty(.data)) return(.data): missing value where TRUE/FALSE needed
-</code></pre>
-
-<pre><code class="r">ggplot(data=ave_type, aes(x=interval, y=steps, group=type_day)) + geom_line(aes(color=type_day))+ facet_wrap(~ type_day, nrow=2)
 </code></pre>
 
 <pre><code>## Error in ggplot(data = ave_type, aes(x = interval, y = steps, group = type_day)): object &#39;ave_type&#39; not found

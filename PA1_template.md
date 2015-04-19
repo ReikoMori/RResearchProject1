@@ -66,13 +66,11 @@ tot_steps <- tapply(data$steps, data$date, FUN=sum, na.rm=TRUE)
 ## Error in data$date: object of type 'closure' is not subsettable
 ```
 
-```r
-qplot(tot_steps, binwidth=1000, xlab="number of steps", ylab = "Frequency", main="Total number of daily steps",col="hotpink4")+ theme(legend.position="none")
-```
 
 ```
 ## Error in eval(expr, envir, enclos): object 'tot_steps' not found
 ```
+
 
 ```r
 ## A.3. Mean and Median of total number of steps/day
@@ -116,8 +114,8 @@ colnames(steps_int) <- c("Interval","Mean")
 
 ```r
 ### Create time series plot from above calculations
-plot(steps_int$Interval, steps_int$Mean, type="l", col="darkred", lwd=2, xlab="time interval", ylab="average number of steps", main="Time Series Plot")
 ```
+
 
 ```
 ## Error in plot(steps_int$Interval, steps_int$Mean, type = "l", col = "darkred", : object 'steps_int' not found
@@ -272,9 +270,6 @@ tot_steps2 <- tapply(data2$steps, data$date, FUN=sum, na.rm=TRUE)
 ## Error in data$date: object of type 'closure' is not subsettable
 ```
 
-```r
-qplot(tot_steps2, binwidth=1000, xlab="number of steps", ylab = "Frequency", main="Total number of daily steps, w/o NAs",col="hotpink4")+ theme(legend.position="none")
-```
 
 ```
 ## Error in eval(expr, envir, enclos): object 'tot_steps2' not found
@@ -311,9 +306,6 @@ ave_type <- ddply(data2, .(interval,type_day), summarize, steps = mean(steps, na
 ## Error in if (empty(.data)) return(.data): missing value where TRUE/FALSE needed
 ```
 
-```r
-ggplot(data=ave_type, aes(x=interval, y=steps, group=type_day)) + geom_line(aes(color=type_day))+ facet_wrap(~ type_day, nrow=2)
-```
 
 ```
 ## Error in ggplot(data = ave_type, aes(x = interval, y = steps, group = type_day)): object 'ave_type' not found
